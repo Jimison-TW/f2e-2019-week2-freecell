@@ -9,7 +9,7 @@ export const CONFIG: any = {
     scale: {
         parent: 'phaser_container',
         width: 1920,
-        height: 1080,
+        height: 1150,
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },

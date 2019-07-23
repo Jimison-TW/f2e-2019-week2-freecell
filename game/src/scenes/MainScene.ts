@@ -13,6 +13,6 @@ export class MainScene extends Phaser.Scene {
     }
 
     create(): void {
-        this.image = this.add.image(this.scale.width / 2, this.scale.height / 2, 'phaser3_cli');
+        this.image = this.add.image(this.scale.width / 2, this.scale.height / 2, 'freecell_bg');
     }
 }

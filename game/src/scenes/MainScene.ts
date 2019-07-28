@@ -32,7 +32,7 @@ export class MainScene extends Phaser.Scene {
                 dropArea.input.dropZone = true;
             }
         }
-        this.add.image(100, bg.height - 100, 'icon_logo').setOrigin(0.5, 0.5);
+        this.add.image(100, bg.height - 100, 'icon_logo').setOrigin(0, 0);
         let undo = this.add.sprite(1800, 850, 'icon_undo').setInteractive();
         undo.on('pointerdown', pointer => {
             console.log('undo click');
@@ -52,14 +52,14 @@ export class MainScene extends Phaser.Scene {
             })
             .setOrigin(0.5, 0.5);
 
-        // let cardArea = this.add.container(200, 350);
         for (let i = 0; i < 8; i++) {
-            let cardArea = new DealCardArea(this, i * 190 + 200,350);
+            let cardArea = new DealCardArea(this, i * 190 + 200, 350);
             this.add.existing(cardArea);
             this.dealCardContainers.push(cardArea);
         }
         DealCardModule.dealCard(this, this.dealCardContainers);
 
+        let lastContainer: DealCardArea = null;
         this.input.on(
             'dragstart',
             function(pointer, gameObject) {
@@ -67,6 +67,7 @@ export class MainScene extends Phaser.Scene {
                 if (gameObject instanceof Card) {
                     let pos = new Phaser.Math.Vector2(gameObject.x, gameObject.y);
                     gameObject.currentPos = pos;
+                    lastContainer = <DealCardArea>gameObject.parentContainer;
                 }
                 this.children.bringToTop(gameObject);
             },
@@ -81,6 +82,9 @@ export class MainScene extends Phaser.Scene {
                     let result = dropZone.saveCard(card);
                     if (!result) {
                         card.setPosition(card.currentPos.x, card.currentPos.y);
+                    } else {
+                        console.log(1);
+                        lastContainer.removeCard();
                     }
                     dropZone.bringToTop(gameObject);
                 } else if (dropZone instanceof CardHomeArea) {
@@ -88,6 +92,9 @@ export class MainScene extends Phaser.Scene {
                     let result = dropZone.saveCard(card);
                     if (!result) {
                         card.setPosition(card.currentPos.x, card.currentPos.y);
+                    } else {
+                        console.log(2);
+                        lastContainer.removeCard();
                     }
                     dropZone.bringToTop(gameObject);
                 } else if (dropZone instanceof DealCardArea) {
@@ -95,6 +102,9 @@ export class MainScene extends Phaser.Scene {
                     let result = dropZone.saveCard(card);
                     if (!result) {
                         card.setPosition(card.currentPos.x, card.currentPos.y);
+                    } else {
+                        console.log(3);
+                        lastContainer.removeCard();
                     }
                     dropZone.bringToTop(gameObject);
                 } else {

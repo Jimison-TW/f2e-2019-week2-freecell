@@ -1,10 +1,10 @@
 import { GameObjects } from 'phaser';
 
 export enum eCardFlower {
-    Steak,
-    Tomato,
-    Vegetable,
-    Bread
+    Spade,
+    Heart,
+    Diamond,
+    Club
 }
 
 export interface CardInfo {

@@ -2,6 +2,7 @@ import { buildTargets } from '../constants';
 import { DealCardModule } from '../component/DealCardModule';
 import { SingleCardArea, CardHomeArea, DealCardArea } from '../component/DropArea';
 import { Card, eCardFlower } from '../component/CardComponent';
+import { Timer } from '../component/Timer';
 
 export class MainScene extends Phaser.Scene {
     private dealCardContainers: DealCardArea[] = [];
@@ -32,7 +33,7 @@ export class MainScene extends Phaser.Scene {
                 dropArea.input.dropZone = true;
             }
         }
-        this.add.image(100, bg.height - 100, 'icon_logo').setOrigin(0, 0);
+        this.add.image(100, bg.height - 100, 'icon_logo').setOrigin(0.5, 0.5);
         let undo = this.add.sprite(1800, 850, 'icon_undo').setInteractive();
         undo.on('pointerdown', pointer => {
             console.log('undo click');
@@ -51,6 +52,7 @@ export class MainScene extends Phaser.Scene {
                 strokeThickness: 5
             })
             .setOrigin(0.5, 0.5);
+        Timer.createTimerText(this,bg.width / 2, 230)
 
         for (let i = 0; i < 8; i++) {
             let cardArea = new DealCardArea(this, i * 190 + 200, 350);

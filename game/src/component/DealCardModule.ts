@@ -2,8 +2,7 @@ import * as CardComponent from './CardComponent';
 import { DealCardArea } from './DropArea';
 
 export module DealCardModule {
-    export function dealCard(scene: Phaser.Scene, container: DealCardArea[]) {
-        let infos: CardComponent.CardInfo[] = createCardTexture();
+    export function dealCard(scene: Phaser.Scene, container: DealCardArea[], infos: CardComponent.CardInfo[]) {
         let rowIndex = -1;
         for (let i = 0; i < infos.length; i++) {
             let columnIndex = i % 8;
@@ -27,7 +26,7 @@ export module DealCardModule {
         }
     }
 
-    function createCardTexture(): CardComponent.CardInfo[] {
+    export function createCardTexture() {
         let cardTextures: CardComponent.CardInfo[] = [];
         for (let i = 1; i < 53; i++) {
             let n = i % 13;

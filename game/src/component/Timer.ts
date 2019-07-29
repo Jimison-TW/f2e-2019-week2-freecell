@@ -18,6 +18,12 @@ export module Timer {
         });
     }
 
+    export function resetTimer() {
+        timerText.setText('00:00');
+        minutes = 0;
+        seconds = 0;
+    }
+
     function setTimerText() {
         seconds++;
         if (seconds >= 60) {
@@ -28,7 +34,7 @@ export module Timer {
         let tSeconds: string = '';
         if (minutes < 10) {
             tMinutes = '0' + minutes;
-        }else {
+        } else {
             tMinutes = minutes + '';
         }
         if (seconds < 10) {

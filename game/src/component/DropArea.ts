@@ -1,6 +1,6 @@
 import { Card, eCardFlower } from './CardComponent';
 
-interface IDropable {
+export interface IDropable {
     maxCards: number;
     saveCard(card: Card): boolean;
     removeCard(): Card;
@@ -8,6 +8,7 @@ interface IDropable {
 
 export class SingleCardArea extends Phaser.GameObjects.Container implements IDropable {
     private cardArray: Card[] = [];
+    public index: number;
     public readonly maxCards = 1;
 
     public saveCard(card: Card): boolean {
@@ -22,10 +23,19 @@ export class SingleCardArea extends Phaser.GameObjects.Container implements IDro
     public removeCard(): Card {
         return this.cardArray.shift();
     }
+
+    public reset() {
+        let childs: Phaser.GameObjects.GameObject[] = this.getAll();
+        for (let child of childs) {
+            child.destroy();
+        }
+        this.cardArray = [];
+    }
 }
 
 export class CardHomeArea extends Phaser.GameObjects.Container implements IDropable {
     private cardArray: Card[] = [];
+    public index: number;
     public readonly maxCards: number = 13;
     public readonly acceptFlower: string = undefined;
     public nextNumber = 1;
@@ -48,10 +58,19 @@ export class CardHomeArea extends Phaser.GameObjects.Container implements IDropa
     public removeCard(): Card {
         return this.cardArray.shift();
     }
+
+    public reset() {
+        let childs: Phaser.GameObjects.GameObject[] = this.getAll();
+        for (let child of childs) {
+            child.destroy();
+        }
+        this.cardArray = [];
+    }
 }
 
 export class DealCardArea extends Phaser.GameObjects.Container implements IDropable {
     private cardArray: Card[] = [];
+    public index: number;
     public readonly maxCards: number = 52;
     public nextNumber = 0;
     public nextFlower: string[] = [];
@@ -106,5 +125,13 @@ export class DealCardArea extends Phaser.GameObjects.Container implements IDropa
         if (lastCard.flower === 'Club' || lastCard.flower === 'Spade') this.nextFlower = ['Diamond', 'Heart'];
         else this.nextFlower = ['Club', 'Spade'];
         this.nextNumber = lastCard.number - 1;
+    }
+
+    public reset() {
+        let childs: Phaser.GameObjects.GameObject[] = this.getAll();
+        for (let child of childs) {
+            child.destroy();
+        }
+        this.cardArray = [];
     }
 }
